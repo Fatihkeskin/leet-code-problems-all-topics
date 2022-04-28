@@ -1,0 +1,29 @@
+class Pair {
+    int first;
+    int second;
+    int distance;
+    public Pair (int x, int y) {
+        first = x;
+        second = y;
+        distance = x*x + y*y;
+    }
+}
+
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        
+        PriorityQueue<Pair> heap = new PriorityQueue<Pair>((a,b) -> a.distance - b.distance);
+        
+        for (int i = 0; i < points.length; i++) {
+            heap.offer(new Pair(points[i][0],points[i][1]));
+        }
+               
+        int[][] result = new int[k][2];
+        for (int y = 0; y < k; y++) {
+            Pair p = heap.poll();
+            result[y][0] = p.first;
+            result[y][1] = p.second;
+        }
+        return result;
+    }
+}
